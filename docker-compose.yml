@@ -17,7 +17,7 @@ services:
     build:
       context: ./client
       args:
-        API_HOST: backend
+        API_HOST: localhost
         API_PORT: 8081
         API_BASE: /api/personas
     container_name: sgu-frontend
