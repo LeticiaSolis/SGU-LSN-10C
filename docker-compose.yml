@@ -20,11 +20,14 @@ services:
         API_HOST: localhost
         API_PORT: 8081
         API_BASE: /api/personas
+        API_PROTOCOL: https
     container_name: sgu-frontend
     ports:
-      - "3000:80"
+      - "3000:443"
     networks:
       - sgu-net
+    volumes:
+      - certbot-conf:/etc/letsencrypt:ro
     depends_on:
       - backend
 
@@ -40,10 +43,15 @@ services:
       DB_NAME: sgu-database
       DB_USER: root
       DB_PASS: root
+      SERVER_SSL_ENABLED: true
+      SERVER_SSL_KEYSTORE: /etc/letsencrypt/live/localhost/keystore.p12
+      SERVER_SSL_KEYSTORE_PASS: changeit
     ports:
       - "8081:8080"
     networks:
       - sgu-net
+    volumes:
+      - certbot-conf:/etc/letsencrypt:ro
     depends_on:
       - database
 
@@ -53,4 +61,6 @@ networks:
 
 volumes:
   sgu-volume:
+    external: true
+  certbot.conf:
     external: true
