@@ -23,6 +23,7 @@ services:
         API_PROTOCOL: https
     container_name: sgu-frontend
     ports:
+      - "3080:80"
       - "3000:443"
     networks:
       - sgu-net
@@ -62,5 +63,5 @@ networks:
 volumes:
   sgu-volume:
     external: true
-  certbot.conf:
+  certbot-conf:
     external: true
